@@ -42,10 +42,9 @@
         function save() {
 
             if (!vm.isBookedFirstPart && vm.firstPart) {
-                var from = new Date(vm.currentDate);
-                var to = new Date(vm.currentDate);
-                from = setDate(from, 24, 0, 0);
-                to = setDate(to, 8, 0, 0);
+                var from = moment(vm.currentDate).set({ hour: 24 }).format();
+                var to = moment(vm.currentDate).set({ hour: 8 }).format();
+
                 var booking = new BookingData();
                 booking.DateFrom = from;
                 booking.DateTo = to;
@@ -54,12 +53,11 @@
                     console.log(data);
                 });
             }
+
             if (!vm.isBookedSecondPart && vm.secondPart) {
-                console.log("second");
-                var from = new Date(vm.currentDate);
-                var to = new Date(vm.currentDate);
-                from = setDate(from, 8, 0, 0);
-                to = setDate(to, 16, 0, 0);
+                var from = moment(vm.currentDate).set({ hour: 8 }).format();
+                var to = moment(vm.currentDate).set({ hour: 16 }).format();
+
                 var booking = new BookingData();
                 booking.DateFrom = from;
                 booking.DateTo = to;
@@ -68,15 +66,15 @@
                     console.log(data);
                 });
             }
+
             if (!vm.isBookedThirdPart && vm.thirdPart) {
-                var from = new Date(vm.currentDate);
-                var to = new Date(vm.currentDate);
-                from = setDate(from, 16, 0, 0);
-                to = setDate(to, 24, 0, 0);
+                var from = moment(vm.currentDate).set({ hour: 16 }).format();
+                var to = moment(vm.currentDate).set({ hour: 24 }).format();
 
                 var booking = new BookingData();
                 booking.DateFrom = from;
                 booking.DateTo = to;
+                
 
                 BookingData.save(booking, function (data) {
                     console.log(data);
