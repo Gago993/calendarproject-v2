@@ -67,7 +67,6 @@
                 BookingData.save(booking, function (data) {
                     firstBookedDefer.resolve(data);
                 }, function (data) {
-                    console.log(data);
                     vm.error = data.data.Message;
                 });
             } else { firstBookedDefer.resolve(null); }
@@ -83,7 +82,6 @@
                 BookingData.save(booking, function (data) {
                     secondBookedDefer.resolve(data);
                 }, function (data) {
-                    console.log(data);
                     vm.error = data.data.Message;
                 });
             } else { secondBookedDefer.resolve(null); }
@@ -99,7 +97,6 @@
                 BookingData.save(booking, function (data) {
                     thirdBookedDefer.resolve(data);
                 }, function (data) {
-                    console.log(data);
                     vm.error = data.data.Message;
                 });
             } else { thirdBookedDefer.resolve(null); }
