@@ -16,6 +16,8 @@
     </div>
 </div>
 <div class="modal-footer">
+    <div style="text-align:left" ng-if="vm.error" ng-bind="vm.error" class="alert alert-danger">
+    </div>
     <button class="btn btn-primary" type="button" ng-disabled="vm.user.CurrentBookingsCount > 3" ng-click="vm.save()">OK</button>
     <button class="btn btn-warning" type="button" ng-click="vm.close()">Cancel</button>
 </div>

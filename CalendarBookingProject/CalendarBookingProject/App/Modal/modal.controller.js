@@ -23,6 +23,7 @@
         vm.close = close;
         vm.user = user;
         vm.toggleCheckbox = toggleCheckbox;
+        vm.errorMessage;
 
         for (var i = 0; i < clientEvents.length; i++) {
             var hour = moment(clientEvents[i].start).format("HH");
@@ -65,6 +66,9 @@
                 
                 BookingData.save(booking, function (data) {
                     firstBookedDefer.resolve(data);
+                }, function (data) {
+                    console.log(data);
+                    vm.error = data.data.Message;
                 });
             } else { firstBookedDefer.resolve(null); }
 
@@ -78,6 +82,9 @@
 
                 BookingData.save(booking, function (data) {
                     secondBookedDefer.resolve(data);
+                }, function (data) {
+                    console.log(data);
+                    vm.error = data.data.Message;
                 });
             } else { secondBookedDefer.resolve(null); }
 
@@ -91,6 +98,9 @@
                 
                 BookingData.save(booking, function (data) {
                     thirdBookedDefer.resolve(data);
+                }, function (data) {
+                    console.log(data);
+                    vm.error = data.data.Message;
                 });
             } else { thirdBookedDefer.resolve(null); }
 
