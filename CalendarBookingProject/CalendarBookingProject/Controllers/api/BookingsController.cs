@@ -35,6 +35,28 @@ namespace CalendarBookingProject.Controllers.api
             return Ok(bookings);
         }
 
+        [HttpGet]
+        [Route("api/users/user")]
+        public async Task<IHttpActionResult> GetUserInfo()
+        {
+            if (!HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                return BadRequest();
+            }
+
+            string userId = HttpContext.Current.User.Identity.GetUserId();
+            int userBookingsCount = await db.Bookings.Where(b => b.UserID == userId).CountAsync();
+
+            UserViewModel user = new UserViewModel()
+            {
+                UserID = userId,
+                CurrentBookingsCount = userBookingsCount,
+                MaxBookingsCount = 3,
+            };
+
+            return Ok(user);
+        }
+
         // POST: api/Bookings
         [ResponseType(typeof(Booking))]
         public async Task<IHttpActionResult> PostBooking(Booking booking)
