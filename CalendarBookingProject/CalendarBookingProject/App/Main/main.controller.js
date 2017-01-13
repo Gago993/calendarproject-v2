@@ -23,13 +23,13 @@
                 header: {
                     left: 'title',
                 },
-                dayClick: onDayClick,
                 views: {
                     custom: {
                         type: 'month',
                         duration: { weeks: 5 },
                     }
                 },
+                dayClick: onDayClick,
                 events: events,
                 dayRender: onDayRender 
             }
@@ -74,7 +74,7 @@
             var modalInstance = $uibModal.open({
                 animation: true,
                 backdrop: 'static',
-                templateUrl: "App/Main/modal.html",
+                templateUrl: "App/Modal/modal.html",
                 controller: "ModalController",
                 controllerAs: "vm",
                 resolve: {

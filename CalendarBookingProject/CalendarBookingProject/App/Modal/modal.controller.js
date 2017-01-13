@@ -2,7 +2,7 @@
     'use strict'
 
     angular
-        .module("app.main")
+        .module("app.modal")
         .controller("ModalController", ModalController);
 
     ModalController.$inject = ["$uibModalInstance", "clientEvents", "currentDate", "BookingData"];

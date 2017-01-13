@@ -29,17 +29,26 @@ namespace CalendarBookingProject
             bundles.Add(new ScriptBundle("~/bundles/angular/app").Include(
                         "~/App/App.js",
 
+                        // Data services
                         "~/App/DataServices/services.data.module.js",
                         "~/App/DataServices/*.data.js",
 
+                        // Core
                         "~/App/Core/core.module.js",
                         "~/App/Core/config.js",
 
+                        // Main panel
                         "~/App/Main/main.module.js",
                         "~/App/Main/*.controller.js",
-                        "~/App/Main/*.service.js",
 
-                        "~/Scripts/bower_components/angular-resource/angular-resource.js"));
+                        // Modal
+                        "~/App/Modal/modal.module.js",
+                        "~/App/Modal/*.controller.js",
+
+                        // Services
+                        "~/App/Services/service.module.js",
+                        "~/App/Services/*.service.js"
+                        ));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.

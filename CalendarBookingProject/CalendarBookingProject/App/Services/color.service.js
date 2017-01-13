@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('app.main')
+    angular.module('app.service')
         .factory('Color', Color);
 
     Color.$inject = [];
@@ -20,7 +20,6 @@
         function getMyColor(){
             return "blue";
         }
-
 
         function getUsersColor(userId) {
 

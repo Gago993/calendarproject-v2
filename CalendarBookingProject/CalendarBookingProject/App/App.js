@@ -8,6 +8,7 @@
         "app.core",
         "app.data",
         "app.main",
-        
+        "app.service",
+        "app.modal"
     ]);
 })();
