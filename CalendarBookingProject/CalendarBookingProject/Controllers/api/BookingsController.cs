@@ -39,6 +39,11 @@ namespace CalendarBookingProject.Controllers.api
         [ResponseType(typeof(Booking))]
         public async Task<IHttpActionResult> PostBooking(Booking booking)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             if (!HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 return BadRequest();
@@ -74,11 +79,8 @@ namespace CalendarBookingProject.Controllers.api
                 }
             }
 
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
 
+            booking.UserID = userId;
             db.Bookings.Add(booking);
             await db.SaveChangesAsync();
 
