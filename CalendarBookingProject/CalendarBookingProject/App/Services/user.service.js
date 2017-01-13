@@ -4,9 +4,11 @@
     angular.module('app.service')
         .factory('CurrentUser', CurrentUser);
 
-    CurrentUser.$inject = ["UserData"];
+    CurrentUser.$inject = ["$q", "UserData"];
 
-    function CurrentUser(UserData) {
+    function CurrentUser($q, UserData) {
+
+        var user;
 
         var service = {
             getUser: getUser
@@ -16,9 +18,14 @@
         ////////////////////////////////////
 
         function getUser() {
-            return UserData.getLoggedInUser(function (data) {
-                console.log(data);
-            });
+            if (user) {
+                return $q.when(user);
+            }
+            else {
+                return UserData.getLoggedInUser(function (data) {
+                    user = data;
+                });
+            }
         }
     }
 })();

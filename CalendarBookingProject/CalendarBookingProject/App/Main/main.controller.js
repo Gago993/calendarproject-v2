@@ -130,7 +130,6 @@
             modalInstance.result.then(function (data) {
                 if (data) {
                     var calendar = uiCalendarConfig.calendars.bookings_calendar;
-                    console.log(data);
                     for (var i = 0; i < data.length; i++) {
                         if (data[i]) {
                             var obj = {};
@@ -138,7 +137,7 @@
                             obj.end = data[i].DateTo;
                             obj.UserID = data[i].UserID;
                             obj.id = data[i].ID;
-                            obj.color = Color.getUsersColor(obj.UserID);
+                            obj.color = vm.user.UserID == data[i].UserID ? Color.getMyColor() : Color.getUsersColor(obj.UserID);
                             vm.user.CurrentBookingsCount++;
                             calendar.fullCalendar('renderEvent', obj);
                         }
@@ -158,10 +157,9 @@
                     obj.end = data[i].DateTo;
                     obj.UserID = data[i].UserID;
                     obj.id = data[i].ID;
-                    obj.color = Color.getUsersColor(obj.UserID);
+                    obj.color = vm.user.UserID == data[i].UserID ? Color.getMyColor() : Color.getUsersColor(obj.UserID);
                     response.push(obj);
                 }
-                console.log(response);
                 callback(response);
             });
         }
