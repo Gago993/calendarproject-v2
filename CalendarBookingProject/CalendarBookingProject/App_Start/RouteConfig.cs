@@ -20,6 +20,12 @@ namespace CalendarBookingProject
              );
 
             routes.MapRoute(
+                 name: "LogOff",
+                 url: "Account/LogOff",
+                 defaults: new { controller = "Account", action = "LogOff", id = UrlParameter.Optional }
+             );
+
+            routes.MapRoute(
                name: "Index",
                url: "Home/Index",
                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
