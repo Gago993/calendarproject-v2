@@ -16,7 +16,7 @@ namespace CalendarBookingProject
             routes.MapRoute(
                  name: "Login",
                  url: "Account/Login",
-                 defaults: new { controller = "Account", action = "Register", id = UrlParameter.Optional }
+                 defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional }
              );
 
             routes.MapRoute(

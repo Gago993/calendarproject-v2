@@ -1,5 +1,6 @@
 namespace CalendarBookingProject.Migrations
 {
+    using Microsoft.AspNet.Identity;
     using Models;
     using System;
     using System.Collections.Generic;
@@ -28,24 +29,28 @@ namespace CalendarBookingProject.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+            var passwordHash = new PasswordHasher();
+
             var user1 = new ApplicationUser()
             {
                 UserName = "user1",
                 Email = "user1",
-                PasswordHash = "5f4dcc3b5aa765d61d8327deb882cf99",
+                PasswordHash = passwordHash.HashPassword("password"),
+                SecurityStamp = "security"
             };
-
             var user2 = new ApplicationUser()
             {
                 UserName = "user2",
                 Email = "user2",
-                PasswordHash = "5f4dcc3b5aa765d61d8327deb882cf99",
+                PasswordHash = passwordHash.HashPassword("password"),
+                SecurityStamp = "security"
             };
             var user3 = new ApplicationUser()
             {
                 UserName = "user3",
                 Email = "user3",
-                PasswordHash = "5f4dcc3b5aa765d61d8327deb882cf99",
+                PasswordHash = passwordHash.HashPassword("password"),
+                SecurityStamp = "security"
             };
 
             var users = new List<ApplicationUser>()
