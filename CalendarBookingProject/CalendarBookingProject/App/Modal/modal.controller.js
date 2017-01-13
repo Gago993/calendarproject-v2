@@ -75,25 +75,16 @@
                 booking.DateFrom = from;
                 booking.DateTo = to;
                 
-
                 BookingData.save(booking, function (data) {
                     console.log(data);
                 });
             }
+
             $uibModalInstance.close(vm.firstPart, vm.secondPart, vm.thirdPart);
         }
 
         function close() {
             $uibModalInstance.dismiss();
-        }
-
-        // private functions 
-        function setDate(date, hours, minutes, seconds) {
-            date.setHours(hours);
-            date.setMinutes(minutes);
-            date.setSeconds(seconds);
-
-            return date;
         }
     }
 })()
