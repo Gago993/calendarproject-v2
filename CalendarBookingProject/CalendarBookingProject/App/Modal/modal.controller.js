@@ -69,7 +69,7 @@
 
             if (!vm.isBookedThirdPart && vm.thirdPart) {
                 var from = moment(vm.currentDate).set({ hour: 16 }).format();
-                var to = moment(vm.currentDate).set({ hour: 24 }).format();
+                var to = moment(vm.currentDate).set({ hour: 23 }).format();
 
                 var booking = new BookingData();
                 booking.DateFrom = from;
