@@ -51,10 +51,22 @@
             element.append(new_description);
 
             element.find("#remove").on('click', function (e) {
-                BookingData.remove({ id: event.id }, function (booking) {
-                    var calendar = uiCalendarConfig.calendars.bookings_calendar;
-                    vm.user.CurrentBookingsCount--;
-                    calendar.fullCalendar('removeEvents', [ booking.ID ]);
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    backdrop: 'static',
+                    templateUrl: "App/Modal/confirm.modal.html",
+                    controller: "ConfirmModalController",
+                    controllerAs: "vm",
+                });
+
+                modalInstance.result.then(function () {
+                    BookingData.remove({ id: event.id }, function (booking) {
+                        var calendar = uiCalendarConfig.calendars.bookings_calendar;
+                        vm.user.CurrentBookingsCount--;
+                        calendar.fullCalendar('removeEvents', [booking.ID]);
+                    });
+                }, function () {
+                    console.log("canceled");
                 });
             });
         }
