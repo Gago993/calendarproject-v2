@@ -58,6 +58,12 @@ namespace CalendarBookingProject.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
