@@ -5,11 +5,15 @@
         .module("app.main")
         .controller("MainController", MainController);
 
-    MainController.$inject = ["$uibModal", "BookingData", "Color"];
+    MainController.$inject = ["$uibModal", "BookingData", "Color", "UserData", "uiCalendarConfig"];
 
-    function MainController($uibModal, BookingData, Color) {
+    function MainController($uibModal, BookingData, Color, UserData, uiCalendarConfig) {
         var vm = this;
         vm.events = [];
+
+        vm.user = UserData.getLoggedInUser(function (data) {
+            console.log(data);
+        });
 
         vm.calendar = {
             calendar: {
@@ -83,13 +87,28 @@
                     },
                     currentDate: function () {
                         return currentDate;
+                    },
+                    user: function(){
+                        return vm.user;
                     }
                 },
             });
 
             modalInstance.result.then(function (data) {
                 if (data) {
+                    var calendar = uiCalendarConfig.calendars.bookings_calendar;
                     console.log(data);
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i]) {
+                            var obj = {};
+                            obj.title = "booked";
+                            obj.start = data[i].DateFrom;
+                            obj.end = data[i].DateTo;
+                            obj.UserID = data[i].UserID;
+                            obj.color = Color.getUsersColor(obj.UserID);
+                            calendar.fullCalendar('renderEvent', obj);
+                        }
+                    }
                 }
             }, function () {
                 console.log("canceled");

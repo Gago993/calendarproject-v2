@@ -5,9 +5,9 @@
         .module("app.modal")
         .controller("ModalController", ModalController);
 
-    ModalController.$inject = ["$uibModalInstance", "clientEvents", "currentDate", "BookingData"];
+    ModalController.$inject = ["$uibModalInstance", "$q", "clientEvents", "currentDate", "BookingData", "user"];
 
-    function ModalController($uibModalInstance, clientEvents, currentDate, BookingData) {
+    function ModalController($uibModalInstance, $q, clientEvents, currentDate, BookingData, user) {
         var vm = this;
         vm.isBookedFirstPart = false;
         vm.isBookedSecondPart = false;
@@ -21,6 +21,7 @@
         vm.currentDate = currentDate;
         vm.save = save;
         vm.close = close;
+        console.log(user);
 
         for (var i = 0; i < clientEvents.length; i++) {
             var hour = moment(clientEvents[i].start).format("HH");
@@ -40,6 +41,9 @@
         }
 
         function save() {
+            var firstDefer = $q.defer();
+            var secondDefer = $q.defer();
+            var thirdDefer = $q.defer();
 
             if (!vm.isBookedFirstPart && vm.firstPart) {
                 var from = moment(vm.currentDate).set({ hour: 24 }).format();
@@ -50,9 +54,9 @@
                 booking.DateTo = to;
                 
                 BookingData.save(booking, function (data) {
-                    console.log(data);
+                    firstDefer.resolve(data);
                 });
-            }
+            } else { firstDefer.resolve(null); }
 
             if (!vm.isBookedSecondPart && vm.secondPart) {
                 var from = moment(vm.currentDate).set({ hour: 8 }).format();
@@ -63,9 +67,9 @@
                 booking.DateTo = to;
 
                 BookingData.save(booking, function (data) {
-                    console.log(data);
+                    secondDefer.resolve(data);
                 });
-            }
+            } else { secondDefer.resolve(null); }
 
             if (!vm.isBookedThirdPart && vm.thirdPart) {
                 var from = moment(vm.currentDate).set({ hour: 16 }).format();
@@ -76,11 +80,13 @@
                 booking.DateTo = to;
                 
                 BookingData.save(booking, function (data) {
-                    console.log(data);
+                    thirdDefer.resolve(data);
                 });
-            }
+            } else { thirdDefer.resolve(null); }
 
-            $uibModalInstance.close(vm.firstPart, vm.secondPart, vm.thirdPart);
+            $q.all([firstDefer.promise, secondDefer.promise, thirdDefer.promise]).then(function (values) {
+                $uibModalInstance.close(values);
+            });
         }
 
         function close() {
