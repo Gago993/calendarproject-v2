@@ -204,6 +204,8 @@
     <Content Include="App\Main\index.html" />
     <Content Include="App\Main\main.controller.js" />
     <Content Include="App\Main\main.module.js" />
+    <Content Include="App\Modal\confirm.modal.controller.js" />
+    <Content Include="App\Modal\confirm.modal.html" />
     <Content Include="App\Modal\modal.controller.js" />
     <Content Include="App\Modal\modal.html" />
     <Content Include="App\Modal\modal.module.js" />
