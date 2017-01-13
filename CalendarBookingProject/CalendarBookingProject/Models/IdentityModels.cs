@@ -25,9 +25,12 @@ namespace CalendarBookingProject.Models
         {
         }
 
+        public DbSet<Booking> Bookings { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
+
     }
 }

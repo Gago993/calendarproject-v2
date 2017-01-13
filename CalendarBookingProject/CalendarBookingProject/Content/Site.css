@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background: url('Images/bg_login.jpg');
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -21,4 +22,8 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.mt-20 {
+    margin-top: 20px;
 }

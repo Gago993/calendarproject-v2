@@ -1,0 +1,18 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">Please book part of the day</h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <div class="checkbox">
+        <label><input type="checkbox" ng-disabled="vm.isBookedFirstPart" ng-checked="vm.isBookedFirstPart" ng-model="vm.firstPart" value="">00:00 - 08:00</label>
+    </div>
+    <div class="checkbox">
+        <label><input type="checkbox" ng-disabled="vm.isBookedSecondPart" ng-checked="vm.isBookedSecondPart" ng-model="vm.secondPart" value="">08:00 - 16:00</label>
+    </div>
+    <div class="checkbox">
+        <label><input type="checkbox" ng-disabled="vm.isBookedThirdPart" ng-checked="vm.isBookedThirdPart" ng-model="vm.thirdPart" value="">16:00 - 00:00</label>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.save()">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="vm.close()">Cancel</button>
+</div>
