@@ -21,7 +21,8 @@
         vm.currentDate = currentDate;
         vm.save = save;
         vm.close = close;
-        console.log(user);
+        vm.user = user;
+        vm.toggleCheckbox = toggleCheckbox;
 
         for (var i = 0; i < clientEvents.length; i++) {
             var hour = moment(clientEvents[i].start).format("HH");
@@ -40,13 +41,22 @@
             }
         }
 
+        function toggleCheckbox(toggle) {
+            if (toggle) {
+                vm.user.CurrentBookingsCount++;
+            }
+            else {
+                vm.user.CurrentBookingsCount--;
+            }
+        }
+
         function save() {
-            var firstDefer = $q.defer();
-            var secondDefer = $q.defer();
-            var thirdDefer = $q.defer();
+            var firstBookedDefer = $q.defer();
+            var secondBookedDefer = $q.defer();
+            var thirdBookedDefer = $q.defer();
 
             if (!vm.isBookedFirstPart && vm.firstPart) {
-                var from = moment(vm.currentDate).set({ hour: 24 }).format();
+                var from = moment(vm.currentDate).set({ hour: 0, seconds: 1 }).format();
                 var to = moment(vm.currentDate).set({ hour: 8 }).format();
 
                 var booking = new BookingData();
@@ -54,9 +64,9 @@
                 booking.DateTo = to;
                 
                 BookingData.save(booking, function (data) {
-                    firstDefer.resolve(data);
+                    firstBookedDefer.resolve(data);
                 });
-            } else { firstDefer.resolve(null); }
+            } else { firstBookedDefer.resolve(null); }
 
             if (!vm.isBookedSecondPart && vm.secondPart) {
                 var from = moment(vm.currentDate).set({ hour: 8 }).format();
@@ -67,24 +77,24 @@
                 booking.DateTo = to;
 
                 BookingData.save(booking, function (data) {
-                    secondDefer.resolve(data);
+                    secondBookedDefer.resolve(data);
                 });
-            } else { secondDefer.resolve(null); }
+            } else { secondBookedDefer.resolve(null); }
 
             if (!vm.isBookedThirdPart && vm.thirdPart) {
                 var from = moment(vm.currentDate).set({ hour: 16 }).format();
-                var to = moment(vm.currentDate).set({ hour: 23 }).format();
+                var to = moment(vm.currentDate).set({ hour: 24 }).format();
 
                 var booking = new BookingData();
                 booking.DateFrom = from;
                 booking.DateTo = to;
                 
                 BookingData.save(booking, function (data) {
-                    thirdDefer.resolve(data);
+                    thirdBookedDefer.resolve(data);
                 });
-            } else { thirdDefer.resolve(null); }
+            } else { thirdBookedDefer.resolve(null); }
 
-            $q.all([firstDefer.promise, secondDefer.promise, thirdDefer.promise]).then(function (values) {
+            $q.all([firstBookedDefer.promise, secondBookedDefer.promise, thirdBookedDefer.promise]).then(function (values) {
                 $uibModalInstance.close(values);
             });
         }
