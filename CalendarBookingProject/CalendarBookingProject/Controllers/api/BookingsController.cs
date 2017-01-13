@@ -77,7 +77,9 @@ namespace CalendarBookingProject.Controllers.api
             string userId = HttpContext.Current.User.Identity.GetUserId();
 
             DateTime timeNow = DateTime.UtcNow;
-            int countUserBookings = db.Bookings.Where(b => b.UserID == userId && b.DateFrom.Year == timeNow.Year && b.DateTo.Month == timeNow.Month).Count();
+            int countUserBookings = db.Bookings.Where(b => b.UserID == userId 
+            && b.DateFrom.Year == timeNow.Year && b.DateFrom.Month == timeNow.Month
+            && b.DateTo.Year == timeNow.Year && b.DateTo.Month == timeNow.Month).Count();
 
             if (countUserBookings >= 3)
             {
@@ -112,6 +114,7 @@ namespace CalendarBookingProject.Controllers.api
             return CreatedAtRoute("DefaultApi", new { id = booking.ID }, booking);
         }
 
+        /*
         // GET: api/Bookings/5
         [ResponseType(typeof(Booking))]
         public async Task<IHttpActionResult> GetBooking(int id)
@@ -159,16 +162,27 @@ namespace CalendarBookingProject.Controllers.api
 
             return StatusCode(HttpStatusCode.NoContent);
         }
-
+        */
 
         // DELETE: api/Bookings/5
         [ResponseType(typeof(Booking))]
         public async Task<IHttpActionResult> DeleteBooking(int id)
         {
+            if (!HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                return BadRequest();
+            }
+
             Booking booking = await db.Bookings.FindAsync(id);
             if (booking == null)
             {
                 return NotFound();
+            }
+
+            string userId = HttpContext.Current.User.Identity.GetUserId();
+            if (!booking.UserID.Equals(userId))
+            {
+                return BadRequest();
             }
 
             db.Bookings.Remove(booking);
