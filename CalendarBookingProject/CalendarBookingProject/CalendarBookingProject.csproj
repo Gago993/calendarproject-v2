@@ -176,6 +176,7 @@
     <Compile Include="Classes\MyPasswordHasher.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\api\BookingsController.cs" />
+    <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">

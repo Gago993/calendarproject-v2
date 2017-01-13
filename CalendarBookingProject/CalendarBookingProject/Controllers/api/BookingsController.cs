@@ -44,8 +44,11 @@ namespace CalendarBookingProject.Controllers.api
                 return BadRequest();
             }
 
+            DateTime timeNow = DateTime.UtcNow;
             string userId = HttpContext.Current.User.Identity.GetUserId();
-            int userBookingsCount = await db.Bookings.Where(b => b.UserID == userId).CountAsync();
+            int userBookingsCount = await db.Bookings.Where(b => b.UserID == userId 
+            && b.DateFrom.Year == timeNow.Year && b.DateFrom.Month == timeNow.Month
+            && b.DateTo.Year == timeNow.Year && b.DateTo.Month == timeNow.Month).CountAsync();
 
             UserViewModel user = new UserViewModel()
             {
